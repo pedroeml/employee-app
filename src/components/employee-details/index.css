@@ -1,0 +1,101 @@
+.employee-details {
+  display: grid;
+  column-gap: 10px;
+  grid-template-areas:
+    "photo information information hire-date-information"
+    "department-history-lbl . . ."
+    "department-history department-history . .";
+}
+
+.employee-details .photo {
+  grid-area: photo;
+  background-color: aquamarine;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #bebebe;
+}
+
+.employee-details .information {
+  grid-area: information;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.employee-details .information .name {
+  margin-top: 0.5em;
+}
+
+.employee-details .information .hire-date {
+  font-size: 0.9em;
+}
+
+.employee-details .information > .update-department {
+  display: grid;
+  grid-template-columns: auto 75px auto;
+  column-gap: 10px;
+  row-gap: 5px;
+  grid-template-areas:
+    "lbl . ."
+    "select update-btn .";
+}
+
+.employee-details .information > .update-department > label {
+  grid-area: lbl;
+  font-weight: 550;
+}
+
+.employee-details .information > .update-department > select {
+  grid-area: select;
+}
+
+.employee-details .information > .update-department > button {
+  grid-area: update-btn;
+  border-radius: 5px;
+  background-color: #4fd600;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.employee-details .information > .update-department > button:disabled {
+  background-color: #bebebe;
+  cursor: not-allowed;
+}
+
+.employee-details .hire-date-information {
+  grid-area: hire-date-information;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.employee-details .hire-date-information .hire-date-lbl {
+  font-weight: 550;
+}
+
+.employee-details .department-history-lbl {
+  grid-area: department-history-lbl;
+}
+
+.employee-details .department-history {
+  grid-area: department-history;
+  border: 1px solid #bebebe;
+}
+
+.employee-details .department-history {
+  border-collapse: collapse;
+}
+
+.employee-details .department-history thead {
+  background-color: lightgrey;
+}
+
+.employee-details .department-history thead th {
+  border: 1px solid lightgrey;
+  text-align: start;
+}
+
+.employee-details .department-history tr td {
+  border-top: 1px solid #bebebe;
+}
