@@ -1,0 +1,57 @@
+.employee-list-item {
+  display: grid;
+  padding: 10px;
+  border: 1px solid #bebebe;
+  border-radius: 10px;
+  width: 525px;
+  grid-template-columns: 100px auto auto;
+  grid-template-areas:
+    "photo information ."
+    "photo information details"
+    "photo information .";
+}
+
+.employee-list-item .photo {
+  grid-area: photo;
+  background-color: aquamarine;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #bebebe;
+}
+
+.employee-list-item .information {
+  display: grid;
+  grid-area: information;
+  padding: 10px;
+  grid-template-areas: 
+    "name name name"
+    ". . ."
+    ". . ."
+    "hire-date-lbl . ."
+    "hire-date hire-date hire-date";
+}
+
+.employee-list-item .information .name {
+  grid-area: name;
+}
+
+.employee-list-item .information .hire-date-lbl {
+  grid-area: hire-date-lbl;
+  font-weight: 550;
+}
+
+.employee-list-item .information .hire-date {
+  grid-area: hire-date;
+  font-size: 0.9em;
+}
+
+.employee-list-item .details {
+  grid-area: details;
+  color: white;
+  background-color: #4fd600;
+  padding: 10px 20px;
+  border: 2px solid #bebebe;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
