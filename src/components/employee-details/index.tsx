@@ -5,15 +5,24 @@ import employeeService from "../../services/employee.service";
 import departmentService from "../../services/department.service";
 import { formatDate, formatTimeDiff } from "../../utils/date";
 import departmentHistoryService from "../../services/department-history.service";
+import { EmployeeResponse } from "../../interface/employee.interface";
+import { DepartmentResponse } from "../../interface/department.interface";
+import { DepartmentHistoryResponse } from "../../interface/department-history.interface";
+
+interface DepartmentsMap {
+  [id: string]: DepartmentResponse;
+}
 
 export default function EmployeeDetails() {
-  const [employee, setEmployee] = useState<any>();
-  const [department, setDepartment] = useState<any>();
-  const [departmentHistory, setDepartmentHistory] = useState<any[]>([]);
-  const [departments, setDepartments] = useState<any>({});
-  const hireDate = useMemo(() => new Date(employee?.hireDate), [employee]);
+  const [employee, setEmployee] = useState<EmployeeResponse>();
+  const [department, setDepartment] = useState<DepartmentResponse>();
+  const [departmentHistory, setDepartmentHistory] = useState<DepartmentHistoryResponse[]>([]);
+  const [departments, setDepartments] = useState<DepartmentsMap>({});
+  
+  const hireDate = useMemo(() => new Date(employee?.hireDate!), [employee]);
   const hireDateString = useMemo(() => formatDate(hireDate), [hireDate]);
   const timeDiff = useMemo(() => formatTimeDiff(hireDate), [hireDate]);
+  
   const { id } = useParams();
 
   const loadDepartmentHistory = useCallback(async () => {
@@ -37,11 +46,11 @@ export default function EmployeeDetails() {
 
   const handleUpdateDepartment = useCallback((e: any) => {
     e.preventDefault();
-    employeeService.updateEmployee(id!, { departmentId: department.id })
+    employeeService.updateEmployee(id!, { departmentId: department!.id })
       .then(employee => {
         setEmployee(employee);
       });
-    departmentHistoryService.createDepartmentHistory({ employeeId: id, departmentId: department.id })
+    departmentHistoryService.createDepartmentHistory({ employeeId: id!, departmentId: department!.id })
       .then(() => loadDepartmentHistory());
   }, [id, department, loadDepartmentHistory]);
 
@@ -56,7 +65,7 @@ export default function EmployeeDetails() {
       });
     departmentService.getDepartments()
       .then(departments => {
-        setDepartments(departments.reduce((acc: any, department: any) => ({...acc, [department.id]: department}), {}));
+        setDepartments(departments.reduce((acc: DepartmentsMap, department: DepartmentResponse) => ({...acc, [department.id]: department}), {}));
       });
     loadDepartmentHistory();
   }, [id, loadDepartmentHistory]);
@@ -67,7 +76,7 @@ export default function EmployeeDetails() {
       <div className="information">
         <h3 className="name">{ employee?.firstName } { employee?.lastName }</h3>
         <span className="employee-id">Employee ID: { id }</span>
-        <span className="department">Department: { departments[employee?.departmentId]?.name }</span>
+        <span className="department">Department: { departments[employee?.departmentId!]?.name }</span>
         <span className="telephone">Telephone: { employee?.phone }</span>
         <span className="address">Address: { employee?.address }</span>
         {
@@ -106,7 +115,7 @@ export default function EmployeeDetails() {
           </tr>
         </thead>
         <tbody>
-          { departmentHistory.map(entry => (
+          { departmentHistory.map((entry: any) => (
             <tr key={entry.id}>
               <td>{ entry.dateString }</td>
               <td>{ departments[entry.departmentId].name }</td>

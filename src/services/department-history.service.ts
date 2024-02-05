@@ -1,13 +1,24 @@
 import environment from "../environment";
+import {
+  DepartmentHistoryRequest,
+  DepartmentHistoryResponse,
+} from "../interface/department-history.interface";
 import { BaseService } from "./base.service";
 
 class DepartmentHistory extends BaseService {
-  public getDepartmentHistory(employeeId: string): Promise<any> {
-    return super.get<any>(`${employeeId}`);
+  public getDepartmentHistory(
+    employeeId: string
+  ): Promise<DepartmentHistoryResponse[]> {
+    return super.get<DepartmentHistoryResponse[]>(`${employeeId}`);
   }
 
-  public createDepartmentHistory(departmentHistory: any): Promise<any> {
-    return super.post<any, any>("", departmentHistory);
+  public createDepartmentHistory(
+    departmentHistory: DepartmentHistoryRequest
+  ): Promise<DepartmentHistoryResponse> {
+    return super.post<DepartmentHistoryResponse, DepartmentHistoryRequest>(
+      "",
+      departmentHistory
+    );
   }
 }
 

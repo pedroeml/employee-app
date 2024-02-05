@@ -1,13 +1,14 @@
 import environment from "../environment";
+import { DepartmentResponse } from "../interface/department.interface";
 import { BaseService } from "./base.service";
 
 class DepartmentService extends BaseService {
-  public getDepartments(): Promise<any> {
-    return super.get<any>("");
+  public getDepartments(): Promise<DepartmentResponse[]> {
+    return super.get<DepartmentResponse[]>("");
   }
 
-  public getDepartment(id: string): Promise<any> {
-    return super.get<any>(`${id}`);
+  public getDepartment(id: string): Promise<DepartmentResponse> {
+    return super.get<DepartmentResponse>(`${id}`);
   }
 }
 

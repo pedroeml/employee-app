@@ -1,25 +1,24 @@
 import environment from "../environment";
+import {
+  EmployeeRequest,
+  EmployeeResponse,
+} from "../interface/employee.interface";
 import { BaseService } from "./base.service";
 
 class EmployeeService extends BaseService {
-  public getEmployees(): Promise<any[]> {
-    return super.get<any[]>("");
+  public getEmployees(): Promise<EmployeeResponse[]> {
+    return super.get<EmployeeResponse[]>("");
   }
 
-  public getEmployee(id: string): Promise<any> {
-    return super.get<any>(`${id}`);
+  public getEmployee(id: string): Promise<EmployeeResponse> {
+    return super.get<EmployeeResponse>(`${id}`);
   }
 
-  public createEmployee(employee: any): Promise<any> {
-    return super.post<any, any>("", employee);
-  }
-
-  public updateEmployee(id: string, employee: any): Promise<any> {
-    return super.patch<any, any>(`${id}`, employee);
-  }
-
-  public deleteEmployee(id: string): Promise<any> {
-    return super.delete<any>(`${id}`);
+  public updateEmployee(
+    id: string,
+    employee: EmployeeRequest
+  ): Promise<EmployeeResponse> {
+    return super.patch<EmployeeResponse, EmployeeRequest>(`${id}`, employee);
   }
 }
 

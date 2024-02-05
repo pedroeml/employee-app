@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 import departmentService from "../../services/department.service";
 import { formatDate, formatTimeDiff } from "../../utils/date";
+import { DepartmentResponse } from "../../interface/department.interface";
+import { EmployeeResponse } from "../../interface/employee.interface";
 
 type Props = {
-  employee: any;
+  employee: EmployeeResponse;
 };
 
 export default function EmployeeListItem({ employee }: Props) {
-  const [department, setDepartment] = useState<any>();
+  const [department, setDepartment] = useState<DepartmentResponse>();
+
   const navigate = useNavigate();
+
   const name = useMemo(() => `${employee.firstName} ${employee.lastName}`, [employee]);
   const hireDate = useMemo(() => new Date(employee.hireDate), [employee]);
   const hireDateString = useMemo(() => formatDate(hireDate), [hireDate]);
